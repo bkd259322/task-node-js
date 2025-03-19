@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Card</title>
+</head>
+<body>
+</body>
+
+<script>
+
+    // outer div
+    const outerdiv = document.createElement('div');
+    document.body.appendChild(outerdiv);
+
+
+    //  card 
+    const carddiv = document.createElement('div');
+    carddiv.style.backgroundColor = 'white';
+    carddiv.style.border = '1px solid black';
+    carddiv.style.width = '250px';
+    carddiv.style.padding = '20px';
+    outerdiv.appendChild(carddiv);
+
+    //  card title
+    const title = document.createElement('h3');
+    title.textContent = 'Card Title';
+    title.style.color = 'black';
+    carddiv.appendChild(title);
+
+    //  description in the card
+    const description = document.createElement('p');
+    description.textContent = 'This is a simple description.';
+    description.style.color = 'black';
+    carddiv.appendChild(description);
+
+    //  button to change background color
+    const button = document.createElement('button');
+    button.textContent = 'Change Background';
+    carddiv.appendChild(button);
+
+    //  button to change text color
+    const button2 = document.createElement('button');
+    button2.textContent = 'Change Text Color';
+    carddiv.appendChild(button2);
+
+    // Change background color  clicking  first button
+    button.addEventListener('click', function () {
+        const colors = ['red','pink','yellow','white','black','green'];
+        if (carddiv.style.backgroundColor === 'white') {
+            let randomColor = colors[Math.floor(Math.random() * colors.length)];
+            carddiv.style.backgroundColor = randomColor;
+            button.textContent = 'Remove Background';
+        } else {
+            carddiv.style.backgroundColor = 'white';
+            button.textContent = 'Change Background';
+        }
+    });
+
+    // Change text color  clicking  second button
+    button2.addEventListener('click', function () {
+        const colors = ['red','pink','yellow','white','black','green'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        if (description.style.color === 'black') {
+            title.style.color = randomColor;
+            description.style.color = randomColor;
+            button2.textContent = 'Remove Text Color';
+        } else {
+            title.style.color = 'black';
+            description.style.color = 'black';
+            button2.textContent = 'Change Text Color';
+        }
+    });
+</script>
+
+</html>

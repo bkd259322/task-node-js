@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5x5 Queens Game</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(5, 50px);
+            grid-template-rows: repeat(5, 50px);
+            gap: 2px;
+            margin: 20px auto;
+            width: max-content;
+        }
+        .cell {
+            width: 50px;
+            height: 50px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            border: 1px solid black;
+        }
+        .cell.queen {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>5*5 Queens Game</h2>
+    <div class="board" id="board"></div>
+    <button onclick="resetBoard()">Reset</button>
+
+    <script>
+        const size = 5;
+        let board = Array.from({ length: size }, () => Array(size).fill(0));
+        const boardElement = document.getElementById("board");
+
+        function createBoard() {
+            boardElement.innerHTML = "";
+            for (let row = 0; row < size; row++) {
+                for (let col = 0; col < size; col++) {
+                    const cell = document.createElement("div");
+                    cell.classList.add("cell");
+                    cell.dataset.row = row;
+                    cell.dataset.col = col;
+                    cell.addEventListener("click", () => placeQueen(row, col, cell));
+                    boardElement.appendChild(cell);
+                }
+            }
+        }
+
+        function isSafe(row, col) {
+            // Check column
+            for (let i = 0; i < size; i++) {
+                if (board[i][col] === 1) return false;
+            }
+            // Check row
+            for (let j = 0; j < size; j++) {
+                if (board[row][j] === 1) return false;
+            }
+            // Check diagonals
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    if (board[i][j] === 1 && (Math.abs(i - row) === Math.abs(j - col))) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function placeQueen(row, col, cell) {
+            if (board[row][col] === 1) {
+                board[row][col] = 0;
+                cell.classList.remove("queen");
+                cell.textContent = "";
+            } else if (isSafe(row, col)) {
+                board[row][col] = 1;
+                cell.classList.add("queen");
+                cell.textContent = "⭐";
+            } else {
+                alert("Invalid move! A queen is already attacking this position.");
+            }
+        }
+
+        function resetBoard() {
+            board = Array.from({ length: size }, () => Array(size).fill(0));
+            createBoard();
+        }
+
+        createBoard();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+</body>
+<script>
+
+// Function to generate a random color
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+// Function to create and style the card dynamically
+function createCard() {
+    // Create the card container
+    const card = document.createElement('div');
+    card.style.border = '2px solid #ccc';
+    card.style.borderRadius = '10px';
+    card.style.padding = '20px';
+    card.style.width = '300px';
+    card.style.margin = '50px auto';
+    card.style.textAlign = 'center';
+    card.style.fontFamily = 'Arial, sans-serif';
+    card.style.transition = 'background-color 0.3s ease';
+
+    // Create the title
+    const title = document.createElement('h3');
+    title.textContent = 'Card Title';
+    card.appendChild(title);
+
+    // Create the description
+    const description = document.createElement('p');
+    description.textContent = 'This is a description of the card. Click the button to toggle the background color.';
+    card.appendChild(description);
+
+    // Create the button
+    const button = document.createElement('button');
+    button.textContent = 'Toggle Color';
+    button.style.padding = '10px 20px';
+    button.style.backgroundColor = '#3498db';
+    button.style.color = 'white';
+    button.style.border = 'none';
+    button.style.borderRadius = '5px';
+    button.style.cursor = 'pointer';
+    button.style.fontSize = '16px';
+    
+    // Add button hover effect
+    button.addEventListener('mouseover', () => {
+        button.style.backgroundColor = '#2980b9';
+    });
+
+    button.addEventListener('mouseout', () => {
+        button.style.backgroundColor = '#3498db';
+    });
+
+    // Add the button to the card
+    card.appendChild(button);
+
+    // Append the card to the body
+    document.body.appendChild(card);
+
+    // Toggle background color on button click
+    let clickCount = 0; // To keep track of the number of clicks
+    button.addEventListener('click', () => {
+        clickCount++;
+
+        if (clickCount % 2 !== 0) {
+            // First, third, fifth, etc., clicks change to random color
+            card.style.backgroundColor = getRandomColor();
+        } else {
+            // Second, fourth, sixth, etc., clicks reset the background
+            card.style.backgroundColor = ''; // Remove the background
+        }
+    });
+}
+
+// Call the function to create the card when the script runs
+createCard();
+
+
+</script>
+
+</html>

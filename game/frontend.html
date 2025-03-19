@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Game</title>
+    <style>
+        .grid {
+            display: grid;
+            gap: 5px;
+            margin: 20px;
+        }
+        .cell {
+            width: 40px;
+            height: 40px;
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .selected {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <h2>Grid Game</h2>
+    <div id="board"></div>
+    <script>
+        const size = 5; 
+        const board = document.getElementById("board");
+        board.classList.add("grid");
+        board.style.gridTemplateColumns = `repeat(${size}, 40px)`;
+        board.style.gridTemplateRows = `repeat(${size}, 40px)`;
+        
+        let matrix = Array(size).fill().map(() => Array(size).fill(0));
+
+        function validateMove(x, y) {
+            return matrix[x].every(val => val === 0) && matrix.every(row => row[y] === 0);
+        }
+        
+        function createGrid() {
+            board.innerHTML = "";
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    let cell = document.createElement("div");
+                    cell.classList.add("cell");
+                    cell.dataset.row = i;
+                    cell.dataset.col = j;
+                    cell.addEventListener("click", handleMove);
+                    board.appendChild(cell);
+                }
+            }
+        }
+        
+        function handleMove(event) {
+            let x = parseInt(event.target.dataset.row);
+            let y = parseInt(event.target.dataset.col);
+            
+            if (validateMove(x, y)) {
+                matrix[x][y] = 1;
+                event.target.classList.add("selected");
+            } else {
+                alert("Move not allowed!");
+            }
+        }
+        
+        createGrid();
+    </script>
+</body>
+</html>

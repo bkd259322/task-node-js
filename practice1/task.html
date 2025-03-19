@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storage Example</title>
+</head>
+<body>
+    <h2>Storage Example</h2>
+    <input type="text" id="inputField" placeholder="Enter text">
+    <button onclick="storeData('local')">Save to LocalStorage</button>
+    <button onclick="storeData('session')">Save to SessionStorage</button>
+    <button onclick="storeData('cookie')">Save to Cookies</button>
+    
+    <h3>Stored Data:</h3>
+    <p id="storedData"></p>
+
+    <script>
+        function storeData(type) {
+            const value = document.getElementById("inputField").value;
+            if (!value) return;
+            
+            if (type === 'local') {
+                localStorage.setItem("storedValue", value);
+            } else if (type === 'session') {
+                sessionStorage.setItem("storedValue", value);
+            } else if (type === 'cookie') {
+                document.cookie = `storedValue=${value}; expires=Fri, 31 Dec 2025 23:59:59 GMT`;
+            }
+            displayData();
+        }
+        
+        function getCookie(name) {
+            const cookies = document.cookie.split('; ');
+            for (let cookie of cookies) {
+                let [key, value] = cookie.split('=');
+                if (key === name) return value;
+            }
+            return "";
+        }
+        
+        function displayData() {
+            let value = localStorage.getItem("storedValue") || 
+                        sessionStorage.getItem("storedValue") || 
+                        getCookie("storedValue") || "No data stored yet";
+            document.getElementById("storedData").textContent = value;
+        }
+        
+        // Display stored data on page load
+        window.onload = displayData;
+    </script>
+</body>
+</html>

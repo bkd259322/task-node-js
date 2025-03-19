@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Grid Editor</title>
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(8, 50px); / Updated to 8 columns /
+            gap: 2px;
+            position: fixed;
+            left: 20px; / Adjust the distance from the left edge /
+            top: 50%; / Center vertically /
+            transform: translateY(-50%); / Center vertically /
+        }
+        .cell {
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .palette {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        .palette div {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .selected {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="palette" id="palette"></div>
+    <div class="grid" id="grid"></div>
+    <button onclick="generateMatrix()">Generate Matrix</button>
+    <pre id="output"></pre>
+
+    <script>
+        const colors = {
+            1: "red",
+            2: "blue",
+            3: "green",
+            4: "yellow",
+            5: "purple",
+            6: "black",
+            7: "pink",
+            
+        };
+
+        let selectedColor = 1;
+        let matrix = [
+            [8, 8, 8, 8, 8, 8, 8], // Updated to 8 columns with all elements set to 8
+            [8, 8, 8, 8, 8, 8, 8],
+            [8, 8, 8, 8, 8, 8, 8],
+            [8, 8, 8, 8, 8, 8, 8],
+            [8, 8, 8, 8, 8, 8, 8],
+            [8, 8, 8, 8, 8, 8, 8],
+            [8, 8, 8, 8, 8, 8, 8]
+        ];
+		
+		// const colors = {
+        //     1: "red",
+        //     2: "blue",
+        //     3: "green",
+        //     4: "yellow",
+        //     5: "purple",
+        //     6: "black",
+        //     7: "pink",
+        //     // 8: "orange", // Added one more color
+        //     8: "white",
+        // };
+
+        // let selectedColor = 1;
+        // let matrix = [
+        //     [8, 8, 8, 8, 8, 8, 8, 8], // Updated to 8 columns with all elements set to 8
+        //     [8, 8, 8, 8, 8, 8, 8, 8],
+        //     [8, 8, 8, 8, 8, 8, 8, 8],
+        //     [8, 8, 8, 8, 8, 8, 8, 8],
+        //     [8, 8, 8, 8, 8, 8, 8, 8],
+        //     [8, 8, 8, 8, 8, 8, 8, 8],
+        //     [8, 8, 8, 8, 8, 8, 8, 8],
+        //     [8, 8, 8, 8, 8, 8, 8, 8],
+        // ];
+        function createPalette() {
+            const paletteDiv = document.getElementById("palette");
+            Object.keys(colors).forEach((num) => {
+                const colorDiv = document.createElement("div");
+                colorDiv.style.background = colors[num];
+                colorDiv.dataset.value = num;
+                colorDiv.classList.add("palette-item");
+                if (num == selectedColor)
+                    colorDiv.classList.add("selected");
+                colorDiv.onclick = () => {
+                    document
+                        .querySelectorAll(".palette-item")
+                        .forEach((el) => el.classList.remove("selected"));
+                    colorDiv.classList.add("selected");
+                    selectedColor = num;
+                };
+                paletteDiv.appendChild(colorDiv);
+            });
+        }
+
+        function createGrid() {
+            const gridDiv = document.getElementById("grid");
+            gridDiv.innerHTML = "";
+            matrix.forEach((row, i) => {
+                row.forEach((cell, j) => {
+                    const cellDiv = document.createElement("div");
+                    cellDiv.classList.add("cell");
+                    cellDiv.style.background = colors[cell];
+                    cellDiv.onclick = () => {
+                        matrix[i][j] = parseInt(selectedColor);
+                        cellDiv.style.background = colors[selectedColor];
+                    };
+                    gridDiv.appendChild(cellDiv);
+                });
+            });
+        }
+
+        function generateMatrix() {
+            document.getElementById("output").textContent = JSON.stringify(
+                matrix,
+                null,
+                2
+            );
+            matrix = matrix.map((row) => row.map(() => 0));
+            createGrid();
+        }
+
+        createPalette();
+        createGrid();
+    </script>
+</body>
+</html>

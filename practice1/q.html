@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .grid-container {
+            display: grid;
+            gap: 5px;
+            margin: 20px auto;
+            max-width: 300px;
+        }
+        .cell {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: white;
+        }
+        .cell.blocked {
+            background-color: red;
+        }
+        .cell.selected {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Grid Game</h1>
+    <label for="size">Enter Grid Size (0-9): </label>
+    <input type="number" id="size" min="1" max="9">
+    <button onclick="initializeGame()">Start Game</button>
+
+    <div id="board"></div>
+
+    <script>
+        let gridSize, board, moves = 0;
+
+        function initializeGame() {
+            gridSize = parseInt(document.getElementById("size").value);
+            if (gridSize < 1 || gridSize > 9) {
+                alert("Enter a valid number between 1-9.");
+                return;
+            }
+
+            board = Array(gridSize).fill().map(() => Array(gridSize).fill(0));
+            renderBoard();
+        }
+
+        function renderBoard() {
+            const boardElement = document.getElementById("board");
+            boardElement.innerHTML = "";
+            boardElement.style.gridTemplateColumns = `repeat(${gridSize}, 40px)`;
+            boardElement.classList.add("grid-container");
+
+            for (let i = 0; i < gridSize; i++) {
+                for (let j = 0; j < gridSize; j++) {
+                    const cell = document.createElement("div");
+                    cell.classList.add("cell");
+                    cell.dataset.row = i;
+                    cell.dataset.col = j;
+                    cell.addEventListener("click", handleCellClick);
+                    boardElement.appendChild(cell);
+                }
+            }
+        }
+
+        function handleCellClick(event) {
+            if (moves >= 5) {
+                alert("Game Over! Restart the game.");
+                return;
+            }
+
+            const row = parseInt(event.target.dataset.row);
+            const col = parseInt(event.target.dataset.col);
+
+            if (validateMove(row, col)) {
+                board[row][col] = 1;
+                event.target.classList.add("selected");
+                disableCells(row, col);
+                moves++;
+            } else {
+                alert("Invalid Move!");
+            }
+        }
+
+        function validateMove(x, y) {
+            if (board[x].includes(1)) return false;
+            if (board.some(row => row[y] === 1)) return false;
+            return true;
+        }
+
+        function disableCells(row, col) {
+            const cells = document.querySelectorAll(".cell");
+            cells.forEach(cell => {
+                const x = parseInt(cell.dataset.row);
+                const y = parseInt(cell.dataset.col);
+
+                if (x === row || y === col || 
+                    Math.abs(x - row) === Math.abs(y - col)) {
+                    cell.classList.add("blocked");
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

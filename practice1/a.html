@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        
+        background-color: aqua;
+        margin-left: 600px;
+
+    }
+    
+   h2{
+    color: blue;
+    margin-left: 42px;
+   }
+   
+    input{
+        margin-left: 76px;
+        margin-bottom: 20px;
+        box-sizing: content-box;
+    }
+   
+.grid{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.row{
+    display: flex;
+    gap: 5px;
+    
+}
+
+
+.cell{
+    width: 55px;
+    height: 45px;
+    background-color: black;
+    border:1 px solid white;
+}
+
+  
+</style>
+<body>
+
+    
+
+    <h2> 👑 Queen Game 👑 </h2>
+    <input type="number" id="matrixSize" min="5" max="9" placeholder="enter a Number (5-9)">
+    <button onclick="generateBox()">Create a box</button>
+<div id="board"></div>
+
+
+</body>
+<script src="a.js"></script>
+</html>
