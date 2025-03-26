@@ -1,48 +1,186 @@
-const http = require('http'); 
-let users = [
-    { id: 1, name: "bhargav" },
-    { id: 2, name: "punit" },
-    { id: 3, name: "rutik" },
-    { id: 4, name: "hiten" },
-    { id: 5, name: "ranjit" }
-];
+// function hello({a = 5 ,b}){
+//  return a * b
 
-const server = http.createServer((req, res) => {
-    if (req.method === 'GET' && req.url === "/users") {
-        res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
-        res.end(JSON.stringify(users));
-    } 
-    if (req.method === 'POST' && req.url === '/users') {
-        let body = '';
-        
-        
-        req.on('data', chunk => {
-            body += chunk;
-        });
+// }
+// console.log(hello({}))
 
-        req.on('end', () => {
-            const newUser = JSON.parse(body); 
-            newUser.id = users.length + 1; 
-            users.push(newUser); 
+// console.log("hello world")
+// function hello(){
+//     console.log("hello")
+// }
+// hello();
 
-            res.statusCode = 201;
-            res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ message: 'User created', user: newUser }));
-        });
-    } else if (req.method === 'DELETE' && req.url.startsWith('/users/')) {
-        const userId = parseInt(req.url.split('/')[2]);  
-        users = users.filter(user => user.id !== userId);
-        res.statusCode = 200;
-        res.end(JSON.stringify({ message: 'User deleted' }));
-    } 
-    else {
-        res.statusCode = 404;
-        res.end(JSON.stringify({ message: 'Route not defined' }));
-    }
-});
+// for(let i=0; i<5; i++){
+//     console.log(i)
+// }
 
-const PORT = 4545;
-server.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// var path = require('path');
+
+// var path = require('path');
+
+// var ext = path.extname('./practice/task/deletefile.js');
+// console.log(ext);
+
+// console.log(path.isAbsolute('/practice/task/deletefile.js'))
+
+// var x = path.join('practice','task','writefile.js')
+// console.log(x)
+
+// Including the module into out project
+// var process = require('process');
+
+// // It will return the current working directory
+// console.log('this is the working directory --> ' + process.cwd());
+
+// // It will return the version of process we are using
+// console.log('this is the process version --> ' + process.version);
+
+// // It will return the type of OS we are using at that time.
+// console.log('current OS we are using --> ' + process.platform);
+
+// function hello(){
+//     const result =  new promise(function(resolve,reject){
+//         setTimeout(() => {
+//             console.log("hello bhargav")
+//         }, 2000);
+//     })
+//     console.log(result)
+// }
+
+// let ans = hello(1)
+// .then(hello(2))
+// .then(hello(3))
+// .then(hello(4))
+// .catch(function(err){
+//     console.log(err.message)
+// })
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// const  EventEmitter = require('events')
+
+// let eventEmitter  = new EventEmitter();
+
+// eventEmitter.on('myevent',(msg)=>{
+//     console.log(msg)
+// })
+// eventEmitter.emit("myevent","hello bhargav")
+
+// const EventEmitter = require("events");
+
+// let eventEmitter = new EventEmitter();
+
+// let name1 = (msg) => {
+//     console.log('bhargav',msg)
+// }
+// let name2 = (msg) => {
+//     console.log("dangar",msg)
+// }
+
+// eventEmitter.on('myevent',name1);
+// eventEmitter.on('myevent',name1);
+// eventEmitter.on('myevent',name2);
+
+// eventEmitter.removeListener('myevent',name1)
+
+// // eventEmitter.removeAllListeners('myevent')
+
+// eventEmitter.emit('myevent','eventOcured')
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+// const EventEmitter = require("events");
+
+// let eventEmitter = new EventEmitter();
+
+// eventEmitter.on("error", (err) => {
+//   console.error(" There was an error");
+// });
+
+// eventEmitter.on("newListener", (event, listener) => {
+//   console.log(`The listener is added to ${event}`);
+// });
+
+// eventEmitter.on("removeListener", (event, listener) => {
+//   console.log(`The listener is removed from ${event}`);
+// });
+
+
+
+// let name1 = (msg) => {
+//   console.log(" BHARGAV " + msg);
+// };
+
+// let name2 = (msg) => {
+//   console.log("BHARGAV " + msg);
+// };
+
+// eventEmitter.on("myEvent", name1);
+// eventEmitter.on("myEvent", name2);
+
+// eventEmitter.removeListener("myEvent",name2);
+
+// eventEmitter.emit("myEvent", "Event occurred");
+
+// eventEmitter.emit("error", new Error("Attention!"));
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// const EventEmitter = require("events");
+
+// let eventEmitter = new EventEmitter();
+
+// let name1 = (msg) => {
+//   console.log("BHARGAV"+msg);
+// };
+
+// let name2 = (msg) => {
+//   console.log("DANGAR"+msg);
+// };
+ 
+// eventEmitter.on('myevent',name1)
+// eventEmitter.on('myevent',name2)
+
+// eventEmitter.removeListener('myevent',name1)
+
+// eventEmitter.emit('myevent',' event occuur')
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// const EventEmitter = require('node:events');
+// const myEE = new EventEmitter();
+// myEE.on('foo', () => console.log('a'));
+// myEE.prependListener('foo', () => console.log('b'));
+// myEE.emit('foo');
+ 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// const EventEmitter = require('events');
+
+// let eventEmitter = new EventEmitter();
+
+// class School extends EventEmitter {
+//   startClass() {
+//     console.log('Class start');
+//     eventEmitter.emit("this time is learning");
+//   }
+// }
+
+// const school = new School();
+
+
+// school.on('bellRing', (message) => {
+//   console.log('Bell ring:', 'all student in class');
+// });
+
+
+// school.startClass();
