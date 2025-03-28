@@ -1,0 +1,71 @@
+[
+    {
+        "iId": "3",
+        "sName": "Orange",
+        "nQuantity": 290,
+        "sStatus": "Available",
+        "nPrice": 199,
+        "dCreatedAt": "2025-03-20T11:05:13.623Z",
+        "dUpdatedAt": "2025-03-20T11:05:13.623Z",
+        "isDeleted": false
+    },
+    {
+        "iId": "4",
+        "sName": "Watermelon",
+        "nQuantity": 100,
+        "sStatus": "Sold Out",
+        "nPrice": 145,
+        "dCreatedAt": "2025-03-20T11:05:47.656Z",
+        "dUpdatedAt": "2025-03-20T11:49:35.556Z",
+        "isDeleted": false
+    },
+    {
+        "iId": "5",
+        "sName": "Grapes",
+        "nQuantity": 100,
+        "sStatus": "Available",
+        "nPrice": 100,
+        "dCreatedAt": "2025-03-20T11:47:24.919Z",
+        "dUpdatedAt": "2025-03-20T11:47:24.919Z",
+        "isDeleted": true
+    },
+    {
+        "iId": "6",
+        "sName": "Apple90",
+        "nQuantity": 100,
+        "sStatus": "Sold Out",
+        "nPrice": 145,
+        "dCreatedAt": "2025-03-20T11:50:35.119Z",
+        "dUpdatedAt": "2025-03-20T12:01:32.818Z",
+        "isDeleted": false
+    },
+    {
+        "iId": "7",
+        "sName": "Pineapple1",
+        "nQuantity": 0,
+        "sStatus": "Sold Out",
+        "nPrice": 100,
+        "dCreatedAt": "2025-03-20T11:52:13.903Z",
+        "dUpdatedAt": "2025-03-20T11:52:13.903Z",
+        "isDeleted": false
+    },
+    {
+        "iId": 9,
+        "sName": "butterMilk",
+        "nQuantity": 100,
+        "sStatus": "stock available",
+        "nPrice": 100,
+        "dCreatedAt": "2025-03-20T11:52:13.903Z",
+        "dUpdatedAt": "2025-03-20T11:52:13.903Z"
+    },
+    {
+        "iId": "5555",
+        "sName": "amul",
+        "nQuantity": 290,
+        "sStatus": "not available",
+        "nPrice": 199,
+        "dCreatedAt": "2025-03-20T11:05:13.623Z",
+        "dUpdatedAt": "2025-03-20T11:05:13.623Z",
+        "isDeleted": false
+    }
+]
