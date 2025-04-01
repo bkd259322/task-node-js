@@ -5,7 +5,7 @@ const {Namevalidetion,PriceVelidation,quantityVelidation,deleteItem} = require('
 
 function deleteData(req,res){
     try {
-        const { id } = req.params;
+        const {id} = req.params;
         let data = readData();
         deleteItem(data.id)
         

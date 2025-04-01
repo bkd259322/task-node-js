@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 
 app.use('/api/data', itemRoute);
-// app.use('/public',publicRoute)
+app.use('/public',publicRoute)
 
 
 app.listen(4545)

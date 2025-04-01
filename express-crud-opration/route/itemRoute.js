@@ -17,10 +17,24 @@ Router.get('/:id',(req,res)=>{
 })
 
 Router.post('/',(req,res)=>{
+   [
+      check("sName").isString().notEmpty().withMessage("Name is required"),
+      check("nPrice").isFloat({ gt: 0 }).withMessage("Price must be a positive number"),
+      check("nQuantity").isInt({ gt: 0 }).withMessage("Quantity must be a positive integer"),
+      validateStatus,
+  validateRequest,
+  ],
    addData(req,res)
 })
 
 Router.put('/:id', (req, res) => {
+   [
+      check("sName").isString().notEmpty().withMessage("Name is required"),
+      check("nPrice").isFloat({ gt: 0 }).withMessage("Price must be a positive number"),
+      check("nQuantity").isInt({ gt: 0 }).withMessage("Quantity must be a positive integer"),
+      validateStatus,
+  validateRequest,
+  ],
    updateData(req,res)
 });
 

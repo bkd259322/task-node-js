@@ -1,26 +1,22 @@
-const { readData } = require("../readWriteData");
+const {readData} = require("../readWriteData");
 
 
-function Namevalidetion(product_name){
-    if(typeof product_name != String){
+function nameValidation(product_name){
+    if(typeof product_name !== "string" || product_name.trim() === ""){
         return false
     }
     return true
 }
 
-
-
-function PriceVelidation(price){
-    if(price < 0){
-       return false
+function priceValidation(price){
+    if(typeof price !== "number" || price<0){
+        return false
     }
     return true
 }
 
-
-
-function quantityVelidation(quantity){
-    if(quantity < 0){
+function quantityValidation(quantity){
+    if(typeof quantity !== "number" || quantity<0){
         return false;
     }
     return true
@@ -28,13 +24,13 @@ function quantityVelidation(quantity){
 
 
 function deleteItem(id){
-    const data = readData()
-    for(let i = 0; i<data.length; i++){
-        if(data[i].id == id){
-            return false
-        }
-    }
-    return true
+    const data = readData();
+    return !data.some(item => item.id === id);
 }
 
-module.exports = {Namevalidetion,PriceVelidation,quantityVelidation,deleteItem}
+module.exports={
+    nameValidation,
+    priceValidation,
+    quantityValidation,
+    deleteItem
+};
