@@ -1,16 +1,31 @@
 const express = require('express');
 const Expense = require('../models/Expense')
 const router = express.Router()
+const Inventory = require('../models/Inventory')
 
 
 router.post('/', async (req, res) => {
-  try {
-    const expense = new Expense(req.body)
-    await expense.save()
-    res.status(201).json(expense)
-  } catch (err) {
-    res.status(400).json({ error: err.message })
-  }
+ const {inventoryId, qty} = req.body
+
+ try{
+      const item = await Inventory.findOne({_id:inventoryId})
+      if(!item){
+        return res.json({message:"item not found"})
+      }
+
+      const new_expense = new Expense({inventoryItem:inventoryId,amount:qty*item.unitPrice,quantityPurchased:qty})
+
+      await new_expense.save()
+      return res.json({massage:"item add sucessfully"})
+
+
+      
+
+
+ }catch(error){
+  res.json({message:"server error"})
+ }
+
 });
 
 

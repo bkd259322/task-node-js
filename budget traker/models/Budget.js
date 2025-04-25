@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const budgetSchema = new mongoose.Schema({
   userId: mongoose.Schema.Types.ObjectId,
+
   dailyLimit:{
     type:Number,
     required:true
@@ -13,7 +14,12 @@ const budgetSchema = new mongoose.Schema({
   monthlyLimit:{
     type:Number,
     required:true
-  } 
+  } ,
+  Date:{
+    type:Date,
+    required:true
+
+  }
 });
 
 module.exports = mongoose.model('Budget', budgetSchema);
