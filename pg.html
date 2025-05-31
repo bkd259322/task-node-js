@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PG Boys Management</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+    h2 {
+      text-align: center;
+    }
+    form, table {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 15px;
+    }
+    button {
+      padding: 10px 15px;
+      background: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <h2>PG Boys Management</h2>
+  <form id="pgForm">
+    <input type="text" id="name" placeholder="Full Name" required />
+    <input type="text" id="mobile" placeholder="Mobile Number" required />
+    <input type="date" id="joiningDate" required />
+    <input type="text" id="roomNumber" placeholder="Room Number" required />
+    <input type="text" id="bedNumber" placeholder="Bed Number (optional)" />
+    <input type="number" id="depositAmount" placeholder="Deposit Amount" required />
+    <input type="number" id="monthlyFee" placeholder="Monthly Fee" required />
+    <input type="date" id="lastPaidDate" placeholder="Last Paid Date" required />
+    <select id="isFeePaid">
+      <option value="true">Fee Paid</option>
+      <option value="false">Fee Not Paid</option>
+    </select>
+    <input type="text" id="remarks" placeholder="Remarks" />
+    <button type="submit">Add PG Boy</button>
+  </form>
+
+  <table id="pgTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Joining Date</th>
+        <th>Room</th>
+        <th>Bed</th>
+        <th>Deposit</th>
+        <th>Monthly Fee</th>
+        <th>Last Paid</th>
+        <th>Fee Paid</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const form = document.getElementById('pgForm');
+    const tableBody = document.querySelector('#pgTable tbody');
+
+    function loadData() {
+      const data = JSON.parse(localStorage.getItem('pgBoys')) || [];
+      tableBody.innerHTML = '';
+      data.forEach(boy => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${boy.name}</td>
+          <td>${boy.mobile}</td>
+          <td>${boy.joiningDate}</td>
+          <td>${boy.roomNumber}</td>
+          <td>${boy.bedNumber || '-'}</td>
+          <td>${boy.depositAmount}</td>
+          <td>${boy.monthlyFee}</td>
+          <td>${boy.lastPaidDate}</td>
+          <td>${boy.isFeePaid === 'true' ? 'Yes' : 'No'}</td>
+          <td>${boy.remarks || '-'}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const newBoy = {
+        name: form.name.value,
+        mobile: form.mobile.value,
+        joiningDate: form.joiningDate.value,
+        roomNumber: form.roomNumber.value,
+        bedNumber: form.bedNumber.value,
+        depositAmount: form.depositAmount.value,
+        monthlyFee: form.monthlyFee.value,
+        lastPaidDate: form.lastPaidDate.value,
+        isFeePaid: form.isFeePaid.value,
+        remarks: form.remarks.value
+      };
+
+      const boys = JSON.parse(localStorage.getItem('pgBoys')) || [];
+      boys.push(newBoy);
+      localStorage.setItem('pgBoys', JSON.stringify(boys));
+      loadData();
+      form.reset();
+    });
+
+    window.onload = loadData;
+  </script>
+</body>
+</html>
